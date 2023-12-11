@@ -11,6 +11,8 @@ import Navbar from '../../components/Navbar';
 import CheckoutSideMenu from '../../components/CheckoutSideMenu';
 import './App.css';
 import { AuthProvider } from '../../Context/authContext';
+import  HomeVendedor  from "../Vendedor/index";
+import  NewPost  from "../Vendedor/NewPost";
 
 const AppRoutes = () => {
   let routes = useRoutes(
@@ -24,6 +26,8 @@ const AppRoutes = () => {
       { path: '/sign-in', element: <SignIn /> },
       { path: '/register', element: <Register /> },
       { path: '/*', element: <NotFound /> },
+      { path: '/home-vendedor', element: <HomeVendedor /> },
+      { path: '/upload-product', element: <NewPost /> },
     ]
   );
 

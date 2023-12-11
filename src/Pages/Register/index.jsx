@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../../Context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../utils/firebaseConfig";
 
 function Register() {
   const { singup } = useAuth();
@@ -8,6 +10,11 @@ function Register() {
     email: "",
     password: "",
   });
+  const [ name, setName ] = useState("");
+  const [ phoneNumber, setPhoneNumber ] = useState();
+  const [ role, setRole ] = useState("comprador");
+  
+  const usersCollection = collection(db, "usuarios");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -16,6 +23,7 @@ function Register() {
     setError("");
     try {
       await singup(user.email, user.password);
+      await addDoc( usersCollection, {email: user.email, name: name, phoneNumber: phoneNumber, role: role} );
       navigate("/");
     } catch (error) {
       console.log(error.code);
@@ -37,7 +45,6 @@ function Register() {
       } else {
         setError('Error al registrarse');
       }
-      //setError(error.message);
     }
   }
 
@@ -54,13 +61,13 @@ function Register() {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
-              type="email"
+              type="text"
               name="email"
               placeholder="Correo"
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Contraseña
             </label>
@@ -72,6 +79,46 @@ function Register() {
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+              Nombre
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="name"
+              value={name}
+              type="text"
+              placeholder="Nombre"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phoneNumber">
+              Número de celular
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="text"
+              value={phoneNumber}
+              type="text"
+              placeholder="Número de celular"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="role">
+              Rol
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="role"
+              onChange={(e) => setRole(e.target.value)}
+              value={role}
+            >
+              <option value="comprador">Comprador</option>
+              <option value="vendedor">Vendedor</option>
+            </select>
+          </div>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <button
               type="submit"
@@ -79,9 +126,9 @@ function Register() {
             >
               Registrarse
             </button>
-            <p className="text-sm" style={{ paddingLeft: '20px'}}>
+            <p className="text-sm" style={{ paddingLeft: '20px' }}>
               ¿Ya tienes una cuenta?{' '}
-              <Link to="/sign-in" className="text-blue-500 font-semibold hover:text-blue-700" style={{ paddingLeft: '20px'}}>
+              <Link to="/sign-in" className="text-blue-500 font-semibold hover:text-blue-700" style={{ paddingLeft: '20px' }}>
                 Inicia sesión aquí
               </Link>
             </p>
