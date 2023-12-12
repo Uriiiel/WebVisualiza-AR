@@ -21,13 +21,13 @@ const ProductDetail = () => {
             <figure>
                 <img
                     className='w-full h-full rounded-lg p-6'
-                    src={context.productToShow.image}
+                    src={context.productToShow.imageUrls}
                 />
             </figure>
             <p className='flex flex-col p-6'>
-                <span className='font-medium text-2xl mb-2'>${context.productToShow.price}</span>
-                <span className='font-medium text-md'>${context.productToShow.title}</span>
-                <span className='font-light  text-sm'>${context.productToShow.description}</span>
+                <span className='font-medium text-2xl mb-2'>${context.productToShow.productPrice}Bs</span>
+                <span className='font-medium text-md'>${context.productToShow.productName}</span>
+                <span className='font-light  text-sm'>${context.productToShow.productDescription}</span>
             </p>
         </aside >
     )

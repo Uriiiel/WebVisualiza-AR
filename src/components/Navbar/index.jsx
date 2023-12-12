@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { ShoppingCartContext } from '../../Context';
@@ -28,7 +28,7 @@ function Navbar() {
 
         fetchUserRole();
     }, [user]);
-    
+
     if (loading) {
         return <p>Cargando...</p>;
     }
@@ -36,31 +36,41 @@ function Navbar() {
     const isBuyer = userRole === 'comprador';
     const isSeller = userRole === 'vendedor';
 
+    // const handleLogout = async () => {
+    //     try {
+    //         await logout();
+    //         Navigate("/");
+    //         window.location.reload(); // Recargar la página después de la navegación
+    //     } catch (error) {
+    //         console.error(error.message);
+    //     }
+    // };
     const handleLogout = async () => {
         try {
             await logout();
-            Navigate("/");
+            window.location.href = '/'; // Redirigir a la ruta de inicio y recargar la página
         } catch (error) {
             console.error(error.message);
-        };
+        }
     };
+
 
     return (
         <nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light'>
             <ul className='flex items-center gap-3'>
                 <li className='font-semibold text-lg'>
-                    <NavLink to="/" activeClassName={activeStyle}>
+                    <NavLink to="/" className={activeStyle}>
                         Inicio
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/my-account" activeClassName={activeStyle}>
+                    <NavLink to="/my-account" className={activeStyle}>
                         Mi cuenta
                     </NavLink>
                 </li>
                 {isBuyer && (
                     <li>
-                        <NavLink to="/my-orders" activeClassName={activeStyle}>
+                        <NavLink to="/my-orders" className={activeStyle}>
                             Mis pedidos
                         </NavLink>
                     </li>
@@ -68,12 +78,12 @@ function Navbar() {
                 {isSeller && (
                     <React.Fragment>
                         <li>
-                            <NavLink to="/upload-product" activeClassName={activeStyle}>
+                            <NavLink to="/upload-product" className={activeStyle}>
                                 Subir producto
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/requests" activeClassName={activeStyle}>
+                            <NavLink to="/requests" className={activeStyle}>
                                 Solicitudes
                             </NavLink>
                         </li>
@@ -81,7 +91,7 @@ function Navbar() {
                 )}
                 {!user && (
                     <li>
-                        <NavLink to="/sign-in" activeClassName={activeStyle}>
+                        <NavLink to="/sign-in" className={activeStyle}>
                             Iniciar sesión
                         </NavLink>
                     </li>
@@ -94,10 +104,12 @@ function Navbar() {
                             <p>{user.email}</p>
                         </li>
                         <li className='text-black/60'>
-                            <button onClick={handleLogout}>Salir</button>
+                            <NavLink to="/" className={activeStyle} onClick={handleLogout}>
+                                Cerrar sesión
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/my-orders" activeClassName={activeStyle}>
+                            <NavLink to="/my-orders" className={activeStyle}>
                                 Mi carrito
                             </NavLink>
                         </li>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
-const OrdersCard = prueba => {
-    const { totalPrice, totalProducts } = prueba;
+const OrdersCard = product => {
+    const { totalPrice, totalProducts } = product;
 
     return (
         <div className='flex justify-between items-center border border-black rounded-lg p-4 w-80 mb-3'>

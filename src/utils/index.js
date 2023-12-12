@@ -5,8 +5,12 @@
  */
 
 export const totalPrice = (products) => {
-    let sum = 0;
-    products.forEach(product => sum += product.price);
+    let sum = 0; // Inicializar la suma como un número, no como una cadena
+
+    products.forEach(product => {
+        // Convertir el precio del producto a un número y sumarlo
+        sum += parseFloat(product.productPrice); // O Number(product.productPrice);
+    });
 
     return sum;
 }

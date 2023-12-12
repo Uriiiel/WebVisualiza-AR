@@ -22,17 +22,17 @@ function SignIn() {
     }
   };
 
-  const handleChange = ({ target: { value, name } }) =>
-    setUser({ ...user, [name]: value });
+  // const handleChange = ({ target: { value, name } }) =>
+  //   setUser({ ...user, [name]: value });
 
-  const handleGoogleSignin = async () => {
-    try {
-      await loginWithGoogle();
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  // const handleGoogleSignin = async () => {
+  //   try {
+  //     await loginWithGoogle();
+  //     navigate("/");
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -91,13 +91,13 @@ function SignIn() {
               >
                 ¿Olvidaste tu contraseña?
               </a>
-              <button
+              {/* <button
                 type="button"
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={handleGoogleSignin}
               >
                 Iniciar sesión con Google
-              </button>
+              </button> */}
             </div>
           </div>
           <p className="text-sm mt-4">

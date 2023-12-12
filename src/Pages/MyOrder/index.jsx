@@ -26,9 +26,9 @@ function MyOrder() {
             <OrderCard
               key={product.id}
               id={product.id}
-              title={product.title}
-              imageUrl={product.image}
-              price={product.price}
+              title={product.productName}
+              imageUrl={product.imageUrls}
+              price={product.productPrice}
             />
           ))
         }
